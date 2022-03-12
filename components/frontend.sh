@@ -5,7 +5,7 @@ echo frontend component
 # checking for root user permissions
 
 userId=$(id -u)
-if[$userId -ne 0]
+if[$userId -ne 0]; then
 echo Please run your cmds as root user permissions
 exit 1
 fi
