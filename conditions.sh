@@ -18,7 +18,7 @@ then
   echo "both are not equal"
 fi
 
-if [ -z ! "$b" ]
+if [ -z "$b" ]
 then
   echo"b variable is empty"
 fi
