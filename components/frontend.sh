@@ -5,7 +5,7 @@ echo frontend component
 # checking for root user permissions
 
 userId=$(id -u)
-if ["$userId" -ne 0]; then
+if [ "$userId" -ne 0 ]; then
   echo Please run your cmds as root user permissions
 exit 1
 fi
@@ -14,7 +14,7 @@ fi
 echo -e "\e[32m installing nginx \e[0m"
 yum install nginx -y
 
-if [$? -eq 0]; then
+if [ $? -eq 0 ]; then
  echo -e "\e[32m nginx installed successfully \e[0m"
 else
   echo -e "\e[32m nginx installed failed\e[0m"
