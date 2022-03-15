@@ -7,6 +7,7 @@
 #3:if []; then cmd elif []; then cmds else cmds fi
 # if is found in in 3forms
 # 1. spring tests
+a="abc"
 if [ "$a" == 'abc' ]
 then
   echo both are equal
