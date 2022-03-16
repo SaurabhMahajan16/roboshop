@@ -67,9 +67,7 @@ unzip /tmp/frontend.zip
 exitStatusCheck $? "extracted -"
 
 Print "moving to current working directory"
-mv frontend-main/* .
-mv static/* .
-rm -rf frontend-main README.md
+mv frontend-main/* . && mv static/* . && rm -rf frontend-main README.md
 exitStatusCheck $? "moving to current - "
 
 
