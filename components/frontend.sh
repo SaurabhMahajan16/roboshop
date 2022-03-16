@@ -18,7 +18,7 @@ fi
 
 Print "installing nginx"
 #echo -e "\e[32m installing nginx \e[0m"
-yum install nginx -yelp
+yum install nginx -y
 
 if [ $? -eq 0 ]; then
 # echo -e "\e[32m nginx installed successfully\n\n\n \e[0m"
