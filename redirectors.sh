@@ -5,15 +5,15 @@ ls - l &> /dev/null
 touch /tmp/abc
 ls -l > /tmp/abc
 #redirecting o/p of ls -l to a file
-cd roboshop
+
 ls -l > /tmp/abc
 #cat /tmp/abc
 #this will override the data in the abc file
 #in order to append data in file we have to use >>
-cd
+
 ls - l >> /tmp/abc
 #cat /tmp/abc
-cd roboshop
+
 ls -l >> /tmp/abc
 #cat /tmp/abc
 #now this redirector will append the data in the file
