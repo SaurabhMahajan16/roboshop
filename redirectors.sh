@@ -11,7 +11,7 @@ ls -l >/tmp/abc
 #this will override the data in the abc file
 #in order to append data in file we have to use >>
 cd
-ls - l >>/temp/abc
+ls - l >>/tmp/abc
 #cat /tmp/abc
 cd /roboshop
 ls -l >>/tmp/abc
