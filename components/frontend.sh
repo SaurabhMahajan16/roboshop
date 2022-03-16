@@ -30,8 +30,8 @@ else
 fi
 
 #Let's download the HTDOCS content and deploy under the Nginx path
-
-echo -e "\e[32m \n\n download the HTDOCS content and deploy under the Nginx path \e[0m"
+Print "download the HTDOCS content and deploy under the Nginx path"
+#echo -e "\e[32m \n\n download the HTDOCS content and deploy under the Nginx path \e[0m"
 curl -f -s -L -o /tmp/frontend.zip "https://github.com/roboshop-devops-project/frontend/archive/main.zip"
 # curl -f will change the exit if the download fails otherwise curl wont give an exit error code
 if [ $? -eq 0 ]; then
