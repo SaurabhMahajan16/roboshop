@@ -13,12 +13,13 @@ ls -l >/tmp/abc
 cd
 ls - l >>/tmp/abc
 #cat /tmp/abc
-cd /roboshop
+cd roboshop
 ls -l >>/tmp/abc
 #cat /tmp/abc
 #now this redirector will append the data in the file
 
 #output and error des not redirect to same file unless specified
 #in order to redirect both o/p & error to same file use &>
+touch /tmp/def
 ls -l &>/tmp/def
 #cat /tmp/def
