@@ -3,7 +3,7 @@
 
 
 Print(){
-  echo -e "\e[32m \n\n $1 \n\n \e[0m"
+  echo -e "\e[34m \n\n $1 \n\n \e[0m"
 }
 
 Print "frontend component"
