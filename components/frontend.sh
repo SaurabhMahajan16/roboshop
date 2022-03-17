@@ -68,7 +68,7 @@ exitStatusCheck $? "clean old nginx -"
 #Print ""
 
 #exitStatusCheck $? "extracted -"
-
+cd /usr/share/nginx/html/
 Print "extracting archive && moving to current working directory"
 unzip /tmp/frontend.zip &>>$logFile && mv frontend-main/* . &>>$logFile && mv static/* . &>>$logFile && rm -rf frontend-main README.md &>>$logFile
 exitStatusCheck $? "moving to current - "
