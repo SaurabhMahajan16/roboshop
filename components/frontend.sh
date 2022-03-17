@@ -4,7 +4,7 @@ logFile=/tmp/roboshop.log
 rm -f $logFile
 
 Print(){
-  echo -e "\e[34m \n ---------${1}---------\n \e[0m" &>>$logfile
+  echo -e "\e[34m \n ---------${1}---------\n \e[0m" &>>$logFile
   echo -e "\e[34m \n\n ${1} \n\n \e[0m"
 }
 exitStatusCheck(){
