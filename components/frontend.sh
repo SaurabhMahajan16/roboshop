@@ -1,8 +1,10 @@
 #! /usr/bin/bash
 
-
+logFile=/tmp/roboshop.log
+rm -f $logFile
 
 Print(){
+  echo -e "\e[34m \n ---------${1}---------\n \e[0m" &>>$logfile
   echo -e "\e[34m \n\n ${1} \n\n \e[0m"
 }
 exitStatusCheck(){
@@ -28,7 +30,8 @@ fi
 
 Print "installing nginx"
 #echo -e "\e[32m installing nginx \e[0m"
-yum install nginx -y
+
+yum install nginx -y &>>$logFile
 exitStatusCheck $? " Nginx installed -"
 #if [ $? -eq 0 ]; then
 # echo -e "\e[32m nginx installed successfully\n\n\n \e[0m"
@@ -42,7 +45,7 @@ exitStatusCheck $? " Nginx installed -"
 #Let's download the HTDOCS content and deploy under the Nginx path
 Print "download the HTDOCS content and deploy under the Nginx path"
 #echo -e "\e[32m \n\n download the HTDOCS content and deploy under the Nginx path \e[0m"
-curl -f -s -L -o /tmp/frontend.zip "https://github.com/roboshop-devops-project/frontend/archive/main.zip"
+curl -f -s -L -o /tmp/frontend.zip "https://github.com/roboshop-devops-project/frontend/archive/main.zip" &>>$logFile
 # curl -f will change the exit if the download fails otherwise curl wont give an exit error code
 exitStatusCheck $? "download HTDOCS content -"
 #if [ $? -eq 0 ]; then
@@ -58,21 +61,21 @@ exitStatusCheck $? "download HTDOCS content -"
 
 Print "clean old nginx location "
 #echo -e "\e[32m \n\n\n clean old nginx location &  Deploy in Nginx Default Location \e[0m"
-cd /usr/share/nginx/html
-rm -rf *
+#cd /usr/share/nginx/html &>>$logFile
+rm -rf /usr/share/nginx/html/* &>>$logFile
 exitStatusCheck $? "clean old nginx -"
 
 Print "extracting archive"
-unzip /tmp/frontend.zip
+unzip /tmp/frontend.zip &>>$logFile
 exitStatusCheck $? "extracted -"
 
 Print "moving to current working directory"
-mv frontend-main/* . && mv static/* . && rm -rf frontend-main README.md
+mv frontend-main/* . &>>$logFile && mv static/* . &>>$logFile && rm -rf frontend-main README.md &>>$logFile
 exitStatusCheck $? "moving to current - "
 
 
 Print "Deploy in Nginx Default Location"
-mv localhost.conf /etc/nginx/default.d/roboshop.conf
+mv localhost.conf /etc/nginx/default.d/roboshop.conf &>>$logFile
 
 
 
@@ -88,7 +91,7 @@ mv localhost.conf /etc/nginx/default.d/roboshop.conf
 #Finally restart the service once to effect the changes.
 Print "restart and enable the service to effect the changes"
 #echo -e "\e[32m restart and enable the service to effect the changes \e[0m"
-systemctl restart nginx
+systemctl restart nginx &>>$logFile
 exitStatusCheck $? "restart nginx - "
 #if [ $? -eq 0 ]; then
 #  Print " nginx restarted successfully "
@@ -99,7 +102,7 @@ exitStatusCheck $? "restart nginx - "
 #  exit 2
 #fi
 
-systemctl enable nginx
+systemctl enable nginx &>>$logFile
 exitStatusCheck $? "enabled nginx"
 #if [ $? -eq 0 ]; then
 #  Print " nginx enabled successfully "
