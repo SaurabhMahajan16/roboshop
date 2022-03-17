@@ -6,3 +6,5 @@ cart:
 	bash components/cart.sh
 #make cart will execute frontend
 #make command only take 1 argument
+mongo:
+	bash components/mongo.sh
