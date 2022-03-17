@@ -66,15 +66,15 @@ rm -rf /usr/share/nginx/html/* &>>$logFile
 exitStatusCheck $? "clean old nginx -"
 
 Print "extracting archive"
-unzip /tmp/frontend.zip &>>$logFile
-exitStatusCheck $? "extracted -"
+
+#exitStatusCheck $? "extracted -"
 
 Print "moving to current working directory"
-mv frontend-main/* . &>>$logFile && mv static/* . &>>$logFile
+unzip /tmp/frontend.zip &>>$logFile && mv frontend-main/* . &>>$logFile && mv static/* . &>>$logFile
 exitStatusCheck $? "moving to current - "
 
 
-Print "update roboshop config"
+Print "update the config"
 mv localhost.conf /etc/nginx/default.d/roboshop.conf &>>$logFile
 
 
