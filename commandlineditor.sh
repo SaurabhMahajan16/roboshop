@@ -10,8 +10,9 @@ cat sedTestFile
 sed -i 's/is/was/g'
 cat sedTestFile
 
-sed -e 1d sedTestFile
+sed -e -i 1d sedTestFile
 
-sed -e '1d' -e '5d' sedTestFile
+sed -e -i '1d' -e '5d' sedTestFile
 #remove two line
-sed -e '/was/ d' sedTestFile
+sed -e -i '/was/ d' sedTestFile
+#without -i option the the file wont be updated only o/p would be
