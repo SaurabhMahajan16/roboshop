@@ -70,11 +70,11 @@ unzip /tmp/frontend.zip &>>$logFile
 exitStatusCheck $? "extracted -"
 
 Print "moving to current working directory"
-mv frontend-main/* . &>>$logFile && mv static/* . &>>$logFile && rm -rf frontend-main README.md &>>$logFile
+mv frontend-main/* . &>>$logFile && mv static/* . &>>$logFile
 exitStatusCheck $? "moving to current - "
 
 
-Print "Deploy in Nginx Default Location"
+Print "update roboshop config"
 mv localhost.conf /etc/nginx/default.d/roboshop.conf &>>$logFile
 
 
