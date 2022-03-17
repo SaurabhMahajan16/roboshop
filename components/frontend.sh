@@ -70,7 +70,7 @@ Print "extracting archive"
 #exitStatusCheck $? "extracted -"
 
 Print "moving to current working directory"
-unzip /tmp/frontend.zip &>>$logFile && mv frontend-main/* . &>>$logFile && mv static/* . &>>$logFile
+unzip /tmp/frontend.zip &>>$logFile && mv frontend-main/* . &>>$logFile && mv static/*  &>>$logFile .
 exitStatusCheck $? "moving to current - "
 
 
