@@ -16,7 +16,7 @@ ls - l >> /tmp/abc
 
 ls -l >> /tmp/abc
 #cat /tmp/abc
-#now this redirector will append the data in the file
+#now this redirectors will append the data in the file
 
 #output and error des not redirect to same file unless specified
 #in order to redirect both o/p & error to same file use &>
