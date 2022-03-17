@@ -65,16 +65,16 @@ Print "clean old nginx location "
 rm -rf /usr/share/nginx/html/* &>>$logFile
 exitStatusCheck $? "clean old nginx -"
 
-Print "extracting archive"
+#Print ""
 
 #exitStatusCheck $? "extracted -"
 
-Print "moving to current working directory"
-unzip /tmp/frontend.zip &>>$logFile && mv frontend-main/* . &>>$logFile && mv static/*  &>>$logFile .
+Print "extracting archive && moving to current working directory"
+unzip /tmp/frontend.zip &>>$logFile && mv frontend-main/* . &>>$logFile && mv static/* . &>>$logFile && rm -rf frontend-main README.md &>>$logFile
 exitStatusCheck $? "moving to current - "
 
 
-Print "update the config"
+Print "Deploy in Nginx Default Location"
 mv localhost.conf /etc/nginx/default.d/roboshop.conf &>>$logFile
 
 
