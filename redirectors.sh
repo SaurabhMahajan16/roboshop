@@ -1,6 +1,6 @@
 #! /usr/bin/bash
 
-ls - l &> /dev/null
+ls -l &> /dev/null
 #this wont store the result as this file is used for nullifying the o/p
 touch /tmp/abc
 ls -l > /tmp/abc
@@ -11,7 +11,7 @@ ls -l > /tmp/abc
 #this will override the data in the abc file
 #in order to append data in file we have to use >>
 
-ls - l >> /tmp/abc
+ls -l >> /tmp/abc
 #cat /tmp/abc
 
 ls -l >> /tmp/abc
