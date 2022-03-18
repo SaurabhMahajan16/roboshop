@@ -25,4 +25,5 @@ cat sedTestFile
 Print "delete operation based on search criteria"
 #remove two line
 sed -i -e '/was/ d' sedTestFile
+cat sedTestFile
 #without -i option the the file wont be updated only o/p would be
