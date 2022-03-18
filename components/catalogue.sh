@@ -59,7 +59,7 @@ Print "Update `MONGO_DNSNAME` with MongoDB Server DNS name"
 sed -i -e 's/MONGO_DNSNAME/mongodb.roboshop.internal/' /home/"${appUser}"/catalogue/systemd.service &>>"${logFile}" &&
 mv /home/"${appUser}"/catalogue/systemd.service /etc/systemd/system/catalogue.service &>>"${logFile}"
 exitStatusCheck $?
-
+#before using dns always ensure you have proper dns record before using it
 #2. Now, lets set up the service with systemctl.
 
 

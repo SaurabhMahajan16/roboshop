@@ -48,9 +48,10 @@ unzip /tmp/frontend.zip &>>$logFile && mv frontend-main/* . &>>$logFile && mv st
 exitStatusCheck $? "moving to current - "
 
 
-Print "Deploy in Nginx Default Location"
-mv localhost.conf /etc/nginx/default.d/roboshop.conf &>>$logFile
-
+Print "edit roboshop.conf file and add dns for different components"
+mv localhost.conf /etc/nginx/default.d/roboshop.conf &>>$logFile && sed -i -e '/catalogue/s/localhost/catalogue.roboshop.internal/' /etc/nginx/default.d/roboshop.conf &>>"${logFile}"
+exitStatusCheck $?
+# dns created for catalogue and edited inplace of ip in roboshop.conf file
 
 
   Print " cleaning and deployed successfully"
