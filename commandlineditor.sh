@@ -1,13 +1,13 @@
 #! /usr/bin/bash
-touch sedTestFile
+#touch sedTestFile
 cat testfile.txt >> sedTestFile
-sed -i 's/is/was/'
+sed -i 's/is/was/' sedTestFile
 cat sedTestFile
 #to edit the file we use -i option as otherwise it will only change the o?p just for command
 #in order to substitute all text with other text, we have to use /g which is global
 #in order to use case insensitive we use /i
 
-sed -i 's/is/was/g'
+sed -i 's/is/was/g' sedTestFile
 cat sedTestFile
 
 sed -e -i 1d sedTestFile
