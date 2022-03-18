@@ -34,3 +34,7 @@ cat sedTestFile
 Print "change first line"
 sed -i -e '1 c Hi How are you' sedTestFile
 cat sedTestFile
+
+#find a  regular expression in a line and in that line substitute other word with anything
+Print "finding a line with a word and then substituting something in that line"
+sed -i -e '/does/s/denote/represent/' sedTestFile
