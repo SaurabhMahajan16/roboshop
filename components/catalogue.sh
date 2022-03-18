@@ -6,7 +6,7 @@ source components/common.sh
 
 #1. This service is written in NodeJS, Hence need to install NodeJS in the system.
 
-Print " download "
+Print " download nodejs "
 curl -fsSL https://rpm.nodesource.com/setup_lts.x | bash - &>>"${logFile}"
 exitStatusCheck $?
 
