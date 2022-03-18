@@ -64,7 +64,7 @@ exitStatusCheck $? "mongodb zip downloaded - "
 
 cd /tmp &>>$logFile && unzip mongodb.zip &>>$logFile && cd mongodb-main &>>$logFile
 exitStatusCheck $? "mongodb unzipped - "
-mongo < catalogue.js && mongo < users.js
+mongo < catalogue.js &>>$logFile && mongo < users.js &>>$logFile
 exitStatusCheck $? "mongodb database created -"
 
 
