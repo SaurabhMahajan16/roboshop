@@ -27,3 +27,10 @@ Print "delete operation based on search criteria"
 sed -i -e '/was/ d' sedTestFile
 cat sedTestFile
 #without -i option the the file wont be updated only o/p would be
+Print "i is for insert and we are inserting hello in first line"
+sed -i -e '1 i Hello' sedTestFile
+cat sedTestFile
+
+Print "change first line"
+sed -i -e '1 c Hi How are you' sedTestFile
+cat sedTestFile
