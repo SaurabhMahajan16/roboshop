@@ -61,7 +61,7 @@ exitStatusCheck $? "mongodb service restarted after changes - "
 curl -s -L -o /tmp/mongodb.zip "https://github.com/roboshop-devops-project/mongodb/archive/main.zip" &>>$logFile
 exitStatusCheck $? "mongodb zip downloaded - "
 
-rm -rf mongodb-main
+rm -rf /tmp/mongodb-main
 cd /tmp &>>$logFile && unzip mongodb.zip &>>$logFile && cd mongodb-main &>>$logFile
 exitStatusCheck $? "mongodb unzipped - "
 mongo < catalogue.js && mongo < users.js
