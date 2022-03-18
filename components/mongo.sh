@@ -41,14 +41,19 @@ exitStatusCheck $? "mongodb service restarted after changes - "
 
 #Download the schema and load it.
 
-
+Print "Download schema"
 curl -s -L -o /tmp/mongodb.zip "https://github.com/roboshop-devops-project/mongodb/archive/main.zip" &>>$logFile
 exitStatusCheck $? "mongodb zip downloaded - "
 
-rm -rf /tmp/mongodb-main
-cd /tmp &>>$logFile && unzip mongodb.zip &>>$logFile && cd mongodb-main &>>$logFile
+Print "extract schema"
+#rm -rf /tmp/mongodb-main
+cd /tmp &>>$logFile && unzip -o mongodb.zip &>>$logFile
+# -o make it work even if mongodb.zip already unzipped so it will replace it
 exitStatusCheck $? "mongodb unzipped - "
-mongo < catalogue.js &>>$logFile && mongo < users.js &>>$logFile
+# shellcheck disable=SC2164
+#&>>"$logFile"
+Print "load schema"
+cd mongodb-main && mongo < catalogue.js &>>$logFile && mongo < users.js &>>$logFile
 exitStatusCheck $? "mongodb database created -"
 
 

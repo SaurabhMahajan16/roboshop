@@ -8,3 +8,6 @@ cart:
 #make command only take 1 argument
 mongo:
 	bash components/mongo.sh
+
+catalogue:
+	bash components/catalogue.sh
