@@ -15,3 +15,8 @@ exitStatusCheck(){
  fi
 
 }
+userId=$(id -u)
+if [ "$userId" -ne 0 ]; then
+  Print "Please run your commands as root user permissions"
+exit 1
+fi

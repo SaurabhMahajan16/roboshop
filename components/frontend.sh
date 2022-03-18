@@ -1,32 +1,6 @@
 #! /usr/bin/bash
 
-logFile=/tmp/roboshop.log
-rm -f $logFile
-
-Print(){
-  echo -e "\e[34m \n ---------${1}---------\n \e[0m" &>>$logFile
-  echo -e "\e[34m \n\n ${1} \n\n \e[0m"
-}
-exitStatusCheck(){
- if [ "${1}" -eq 0 ]; then
- # echo -e "\e[32m nginx installed successfully\n\n\n \e[0m"
-  Print "${2} Successfully"
- else
-   Print "${2} failed"
- #  echo -e "\e[32m nginx installed failed\e[0m"
-   exit 2
- fi
-
-}
-Print "frontend component"
-
-# checking for root user permissions
-
-userId=$(id -u)
-if [ "$userId" -ne 0 ]; then
-  Print "Please run your commands as root user permissions"
-exit 1
-fi
+source components/common.sh
 
 Print "installing nginx"
 #echo -e "\e[32m installing nginx \e[0m"
