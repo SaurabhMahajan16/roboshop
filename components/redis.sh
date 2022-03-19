@@ -16,7 +16,7 @@ Print "installing redis"
 yum install redis -y &>>"${logFile}"
 exitStatusCheck $?
 
-#2. Update the BindIP from `127.0.0.1` to `0.0.0.0` in config file `/etc/redis.conf` & `/etc/redis/redis.conf`
+#2. Update the BindIP from`127.0.0.1`to`0.0.0.0`in config file `/etc/redis.conf` & `/etc/redis/redis.conf`
 
 Print "updating redis.conf file to listen to all"
 if [ -f /etc/redis.conf ]
@@ -31,6 +31,6 @@ then
 fi
 #3. Start Redis Database
 
-Print "anable and restart reddis "
+Print "enable and restart redis "
 systemctl enable redis &>>"${logFile}" && systemctl restart redis &>>"${logFile}"
 exitStatusCheck $?

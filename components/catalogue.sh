@@ -50,6 +50,10 @@ Print "install dependencies"
 cd /home/"${appUser}"/catalogue &>>"${logFile}" && npm install &>>"${logFile}"
 exitStatusCheck $?
 
+Print "Fix app user permissions"
+chown -R "${appUser}":"${appUser}" /home/"${appUser}"
+exitStatusCheck $?
+
 
 #1. Update SystemD file with correct IP addresses
 
