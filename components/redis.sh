@@ -7,11 +7,13 @@
 source components/common.sh
 
 Print "downloading redis"
-curl -f-L https://raw.githubusercontent.com/roboshop-devops-project/redis/main/redis.repo -o /etc/yum.repos.d/redis.repo &>>"${logfile}"
+
+ curl -L https://raw.githubusercontent.com/roboshop-devops-project/redis/main/redis.repo -o /etc/yum.repos.d/redis.repo &>>"${logFile}"
+# yum install redis -y &>>"${logfile}"
 exitStatusCheck $?
 
 Print "installing redis"
-yum install redis -y &>>"${logfile}"
+yum install redis -y &>>"${logFile}"
 exitStatusCheck $?
 
 #2. Update the BindIP from `127.0.0.1` to `0.0.0.0` in config file `/etc/redis.conf` & `/etc/redis/redis.conf`
@@ -19,16 +21,16 @@ exitStatusCheck $?
 Print "updating redis.conf file to listen to all"
 if [ -f /etc/redis.conf ]
 then
-  sed -i -e '/s/127.0.0.1/0.0.0.0/' /etc/redis.conf &>>"${logfile}"
+  sed -i -e '/s/127.0.0.1/0.0.0.0/' /etc/redis.conf &>>"${logFile}"
   exitStatusCheck $?
 fi
 if [ -f /etc/redis/redis.conf ]
 then
-  sed -i -e '/s/127.0.0.1/0.0.0.0/' /etc/redis/redis.conf &>>"${logfile}"
+  sed -i -e '/s/127.0.0.1/0.0.0.0/' /etc/redis/redis.conf &>>"${logFile}"
   exitStatusCheck $?
 fi
 #3. Start Redis Database
 
 Print "anable and restart reddis "
-systemctl enable redis &>>"${logfile}" && systemctl restart redis &>>"${logfile}"
+systemctl enable redis &>>"${logFile}" && systemctl restart redis &>>"${logFile}"
 exitStatusCheck $?
