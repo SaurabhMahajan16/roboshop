@@ -11,3 +11,10 @@ mongo:
 
 catalogue:
 	bash components/catalogue.sh
+
+user:
+	bash components/user.sh
+
+redis:
+	bash components/redis.sh
+
