@@ -79,7 +79,7 @@ nodeJs(){
 
   Print "Update Server DNS name"
   #for value in
-  sed -i -e 's/MONGO_DNSNAME/mongodb.roboshop.internal/' -e 's/REDIS_ENDPOINT/redis.roboshop.internal/' -e 's/MONGO_ENDPOINT/mongodb.roboshop.internal/' /home/"${appUser}"/"${component}"/systemd.service &>>"${logFile}" &&
+  sed -i -e 's/MONGO_DNSNAME/mongodb.roboshop.internal/' -e 's/REDIS_ENDPOINT/redis.roboshop.internal/' -e 's/MONGO_ENDPOINT/mongodb.roboshop.internal/' -e 's/CATALOGUE_ENDPOINT/catalogue.roboshop.internal/' /home/"${appUser}"/"${component}"/systemd.service &>>"${logFile}" &&
   mv /home/"${appUser}"/"${component}"/systemd.service /etc/systemd/system/"${component}".service &>>"${logFile}"
   exitStatusCheck $?
   #before using dns always ensure you have proper dns record before using it
