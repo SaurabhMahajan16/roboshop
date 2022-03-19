@@ -53,7 +53,11 @@ exitStatusCheck $? "mongodb unzipped - "
 # shellcheck disable=SC2164
 #&>>"$logFile"
 Print "load schema"
-cd mongodb-main && mongo < catalogue.js &>>$logFile && mongo < users.js &>>$logFile
+cd mongodb-main
+
+for schema in catalogue users ; do
+  Print "load ${schema} schema "
+mongo < ${schema}.js &>>$logFile
 exitStatusCheck $? "mongodb database created -"
 
 
