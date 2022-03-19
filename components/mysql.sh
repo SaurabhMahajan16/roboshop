@@ -26,7 +26,7 @@ systemctl enable mysqld &>>"${logFile}" && systemctl start mysqld &>>"${logFile}
 exitStatusCheck $?
 
 #1. Now a default root password will be generated and given in the log file.
-
+defaultRootPassword=${grep "temporary password" /var/log/mysql.log | awk "{print $NF}"}
 
 grep temp /var/log/mysqld.log
 

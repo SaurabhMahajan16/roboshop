@@ -32,3 +32,5 @@ dispatch:
 
 payment:
 	bash components/payment.sh
+
+#makefile updated
