@@ -77,7 +77,7 @@ nodeJs(){
 
   #Update `MONGO_DNSNAME` with MongoDB Server IP
 
-  Print "Update `MONGO_DNSNAME` with MongoDB Server DNS name"
+  Print "Update Server DNS name"
   #for value in
   sed -i -e 's/MONGO_DNSNAME/mongodb.roboshop.internal/' -e 's/REDIS_ENDPOINT/redis.roboshop.internal/' -e 's/MONGO_ENDPOINT/mongodb.roboshop.internal/' /home/"${appUser}"/"${component}"/systemd.service &>>"${logFile}" &&
   mv /home/"${appUser}"/"${component}"/systemd.service /etc/systemd/system/"${component}".service &>>"${logFile}"
