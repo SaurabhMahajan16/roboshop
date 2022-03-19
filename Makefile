@@ -18,3 +18,17 @@ user:
 redis:
 	bash components/redis.sh
 
+mysql:
+	bash components/mysql.sh
+
+shipping:
+	bash components/shipping.sh
+
+rabbitmq:
+	bash components/rabbitmq.sh
+
+dispatch:
+	bash components/dispatch.sh
+
+payment:
+	bash components/payment.sh
