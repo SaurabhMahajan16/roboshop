@@ -22,10 +22,10 @@ exitStatusCheck $?
 
 #in mysql we dont need to give spaces between options and inputs like in -uroot -u is option and root is input slrly -p is for passwd and Roboshop@1 is password
 #we use condition because if we are running script again & again the the password is already changed so we cant change it again and again so if condition is checking whether password is changed by validating the password
-echo "show databases" | mysql -uroot -pRoboShop@1 &>>"${logFile}"
+echo "show databases" | mysql -uroot -p"${code}" &>>"${logFile}"
 if [ $? -ne 0 ]; then
   Print "changing default root password for mysql"
-  echo "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('RoboShop@1');" >/tmp/rootpass.sql
+  echo "SET PASSWORD FOR 'root'@'localhost' = PASSWORD("${code}");" >/tmp/rootpass.sql
   defaultRootPassword=$(grep 'temporary password' /var/log/mysqld.log | awk '{print $NF}')
   #here we used round brackets because we are assigning a variable a command
   Print "${defaultRootPassword}"
@@ -36,12 +36,12 @@ if [ $? -ne 0 ]; then
   exitStatusCheck $?
 fi
 #to uninstall password plugin we have to make sure that it exists
-echo "show plugins" | mysql -uroot -pRoboShop@1 2>>"${logFile}" | grep "validate_password" &>>"${logFile}"
+echo "show plugins" | mysql -uroot -p"${code}" 2>>"${logFile}" | grep "validate_password" &>>"${logFile}"
 #we used 2>> because we just want error to go to this file
 if [ $? -eq 0 ]; then
   Print "uninstalling validate password plugin"
   echo "uninstall plugin validate_password" >/tmp/pass-validate.sql
-  mysql --connect-expired-password -uroot -pRoboShop@1 </tmp/pass-validate.sql &>>"${logFile}"
+  mysql --connect-expired-password -uroot -p"${code}" </tmp/pass-validate.sql &>>"${logFile}"
   exitStatusCheck $?
 fi
 
@@ -53,10 +53,10 @@ exitStatusCheck $?
 
 #Load the schema for Services.
 
-Print  "exracting schema"
+Print  "extracting schema"
 cd /tmp && unzip -o mysql.zip &>>"${logFile}"
 exitStatusCheck $?
 
 Print "loading schema"
-cd mysql-main && mysql -uroot -pRoboShop@1 <shipping.sql &>>"${logFile}"
+cd mysql-main && mysql -uroot -p"${code}" <shipping.sql &>>"${logFile}"
 exitStatusCheck $?
