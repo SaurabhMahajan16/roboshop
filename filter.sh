@@ -9,3 +9,4 @@ grep "does" /roboshop/testFile.txt | awk "{print $1}"
 grep "does" /roboshop/testFile.txt | awk "{print $NF}"
 
 Print "${code}"
+Print "${tempcode}"
