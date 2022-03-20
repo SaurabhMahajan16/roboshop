@@ -25,7 +25,7 @@ exitStatusCheck $?
 echo "show databases" | mysql -uroot -p"${code}" &>>"${logFile}"
 if [ $? -ne 0 ]; then
   Print "changing default root password for mysql"
-  echo "SET PASSWORD FOR 'root'@'localhost' = PASSWORD("${code}");" >/tmp/rootpass.sql
+  echo "SET PASSWORD FOR 'root'@'localhost' = PASSWORD(${tempcode});" >/tmp/rootpass.sql
   defaultRootPassword=$(grep 'temporary password' /var/log/mysqld.log | awk '{print $NF}')
   #here we used round brackets because we are assigning a variable a command
   Print "${defaultRootPassword}"
