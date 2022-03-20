@@ -2,12 +2,6 @@
 
 source components/common.sh
 
-#MySQL is the database service which is needed for the application. So we need to install it and configure it for the application to work.
-
-## **Manual Steps to Install MySQL**
-
-#As per the Application need, we are choosing MySQL 5.7 version.
-
 #1. Setup MySQL Repo
 
 Print "configure yum repos"
@@ -19,56 +13,47 @@ Print "install MySQL"
 yum install mysql-community-server -y &>>"${logFile}"
 exitStatusCheck $?
 
-#1. Start MySQL.
 
 Print "enable and start mysql service"
 systemctl enable mysqld &>>"${logFile}" && systemctl start mysqld &>>"${logFile}"
 exitStatusCheck $?
 
 #1. Now a default root password will be generated and given in the log file.
-defaultRootPassword=${grep "temporary password" /var/log/mysql.log | awk "{print $NF}"}
-
-grep temp /var/log/mysqld.log
-
-
-#1. Next, We need to change the default root password in order to start using the database service. Use password `RoboShop@1` or any other as per your choice. Rest of the options you can choose `No`
-
-
-# mysql_secure_installation
-
-
-#1. You can check the new password working or not using the following command in MySQL
-
-#First lets connect to MySQL
-
-
-# mysql -uroot -pRoboShop@1
-
-
-#Once after login to MySQL prompt then run this SQL Command.
-
-#sql
-> uninstall plugin validate_password;
-
-
-## **Setup Needed for Application.**
-
-#As per the architecture diagram, MySQL is needed by
-
-- Shipping Service
-
-#So we need to load that schema into the database, So those applications will detect them and run accordingly.
-
-#To download schema, Use the following command
+echo "show databases" | mysql -uroot -pRoboShop@1 &>>"${logFile}"
+#in mysql we dont need to give spaces between options and inputs like in -uroot -u is option and root is input slrly -p is for passwd and Roboshop@1 is password
+#we use condition because if we are running script again & again the the password is already changed so we cant change it again and again so if condition is checking whether password is changed by validating the password
+if [ $? -ne 0 ]; then
+  Print "changing default root password for mysql"
+  echo "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('Roboshop@1');" >/tmp/rootpass.sql
+  defaultRootPassword=$(grep "temporary password" /var/log/mysql.log | awk "{print $NF}")
+  #here we used round brackets because we are assigning a variable a command
+#Nth field means last field but if u want 2nd last NF-1 or similar
+  mysql --connect-expired-password -uroot -p"${defaultRootPassword}" </tmp/rootpass.sql &>>"${logFile}"
+  #we use --connect-expired-password as default password is expired so we have to got with this so we have to use this option
+  exitStatusCheck $?
+fi
+#to uninstall password plugin we have to make sure that it exists
+echo "show plugins" | mysql -uroot -pRoboShop@1 2>>"${logFile}" | grep "validate_password" &>>"${logFile}"
+#we used 2>> because we just want error to go to this file
+if [ $? -eq 0 ]; then
+  Print "uninstalling validate password plugin"
+  echo "uninstall plugin validate_password" >/tmp/pass-validate.sql
+  mysql --connect-expired-password -uroot -pRoboShop@1 </tmp/pass-validate.sql &>>"${logFile}"
+  exitStatusCheck $?
+fi
 
 
-curl -s -L -o /tmp/mysql.zip "https://github.com/roboshop-devops-project/mysql/archive/main.zip"
+Print "download schema"
+curl -s -L -o /tmp/mysql.zip "https://github.com/roboshop-devops-project/mysql/archive/main.zip" &>>"${logFile}"
+exitStatusCheck $?
 
 
-Load the schema for Services.
+#Load the schema for Services.
 
+Print  "exracting schema"
+cd /tmp && unzip -o mysql.zip &>>"${logFile}"
+exitStatusCheck $?
 
-cd /tmp
-unzip mysql.zip
-cd mysql-main
-mysql -u root -pRoboShop@1 <shipping.sql
+Print "loading schema"
+cd mysql-main && mysql -u root -pRoboShop@1 <shipping.sql &>>"${logFile}"
+exitStatusCheck $?
