@@ -56,5 +56,5 @@ cd /tmp && unzip -o mysql.zip &>>"${logFile}"
 exitStatusCheck $?
 
 Print "loading schema"
-cd mysql-main && mysql -u root -pRoboShop@1 <shipping.sql &>>"${logFile}"
+cd mysql-main && mysql -uroot -pRoboShop@1 <shipping.sql &>>"${logFile}"
 exitStatusCheck $?
