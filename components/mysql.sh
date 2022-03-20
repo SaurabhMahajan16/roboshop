@@ -30,7 +30,8 @@ if [ $? -ne 0 ]; then
   #here we used round brackets because we are assigning a variable a command
   Print "${defaultRootPassword}"
 #Nth field means last field but if u want 2nd last NF-1 or similar
-  mysql --connect-expired-password -uroot -p${defaultRootPassword} </tmp/rootpass.sql &>>"${logFile}"
+#--connect-expired-password
+  mysql -uroot -p"${defaultRootPassword}" </tmp/rootpass.sql &>>"${logFile}"
   #we use --connect-expired-password as default password is expired so we have to got with this so we have to use this option
   exitStatusCheck $?
 fi
