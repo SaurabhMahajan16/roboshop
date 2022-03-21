@@ -25,7 +25,7 @@ appDaemonUser=roboshop
 
 createDaemonUser(){
 
-  id "${appUser}" &>>logFile
+  id "${appDaemonUser}" &>>logFile
   if [ $? -ne 0 ]; then
     Print "add application user"
     useradd "${appDaemonUser}" &>>"${logFile}"
@@ -35,6 +35,8 @@ createDaemonUser(){
 
 #this function is part of coding practise as in every application we are using downloading cleaning and extracting app content
 settingUpApplication(){
+
+  Print"downloading ${component}"
   curl -s -L -o /tmp/"${component}".zip "https://github.com/roboshop-devops-project/"${component}"/archive/main.zip" &>>"${logFile}"
     exitStatusCheck $?
 
@@ -107,7 +109,7 @@ nodeJs(){
 
   # shellcheck disable=SC2164
   Print "install dependencies"
-  cd /home/"${appUser}"/"${component}" &>>"${logFile}" && npm install &>>"${logFile}"
+  cd /home/"${appDaemonUser}"/"${component}" &>>"${logFile}" && npm install &>>"${logFile}"
   exitStatusCheck $?
 
    #calling function which will setup permissions edit systemd.conf file and enable and restart the service
