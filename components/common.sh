@@ -64,7 +64,7 @@ settingUpPermissionAndService(){
          -e 's/CATALOGUE_ENDPOINT/catalogue.roboshop.internal/' \
          -e 's/CARTENDPOINT/crt.roboshop.internal/' \
          -e 's/DBHOST/mysql.roboshop.internal/' \
-         /home/"${appUser}"/"${component}"/systemd.service &>>"${logFile}" &&
+         /home/"${appDaemonUser}"/"${component}"/systemd.service &>>"${logFile}" &&
   mv /home/"${appDaemonUser}"/"${component}"/systemd.service /etc/systemd/system/"${component}".service &>>"${logFile}"
   exitStatusCheck $?
   #before using dns always ensure you have proper dns record before using it
