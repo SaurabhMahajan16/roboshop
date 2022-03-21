@@ -57,7 +57,7 @@ cd mongodb-main
 
 for schema in catalogue users ; do
   Print "load ${schema} schema "
-mongo < ${schema}.js &>>$logFile
+  mongo < ${schema}.js &>>$logFile
 exitStatusCheck $? "mongodb database created -"
 
 
