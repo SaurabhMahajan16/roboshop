@@ -41,19 +41,19 @@ settingUpApplication(){
     exitStatusCheck $?
 
     Print "clean up old content"
-    rm -rf /home/"${appUser}"/"${component}" &>>"${logFile}"
+    rm -rf /home/"${appDaemonUser}"/"${component}" &>>"${logFile}"
     exitStatusCheck $?
 
 
     Print "extract app content"
-    cd /home/"${appUser}" &>>"${logFile}"  && unzip -o /tmp/"${component}".zip &>>"${logFile}" && mv "${component}"-main "${component}" &>>"${logFile}"
+    cd /home/"${appDaemonUser}" &>>"${logFile}"  && unzip -o /tmp/"${component}".zip &>>"${logFile}" && mv "${component}"-main "${component}" &>>"${logFile}"
     exitStatusCheck $?
 }
 
 settingUpPermissionAndService(){
 
   Print "Fix app user permissions"
-  chown -R "${appUser}":"${appUser}" /home/"${appUser}"
+  chown -R "${appDaemonUser}":"${appDaemonUser}" /home/"${appDaemonUser}"
   exitStatusCheck $?
 
   Print "Update Server DNS name by configuring systemd file"
@@ -65,7 +65,7 @@ settingUpPermissionAndService(){
          -e 's/CARTENDPOINT/crt.roboshop.internal/' \
          -e 's/DBHOST/mysql.roboshop.internal/' \
          /home/"${appUser}"/"${component}"/systemd.service &>>"${logFile}" &&
-  mv /home/"${appUser}"/"${component}"/systemd.service /etc/systemd/system/"${component}".service &>>"${logFile}"
+  mv /home/"${appDaemonUser}"/"${component}"/systemd.service /etc/systemd/system/"${component}".service &>>"${logFile}"
   exitStatusCheck $?
   #before using dns always ensure you have proper dns record before using it
   #2. Now, lets set up the service with systemctl.
