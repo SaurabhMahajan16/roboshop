@@ -62,7 +62,7 @@ settingUpPermissionAndService(){
          -e 's/REDIS_ENDPOINT/redis.roboshop.internal/' \
          -e 's/MONGO_ENDPOINT/mongodb.roboshop.internal/' \
          -e 's/CATALOGUE_ENDPOINT/catalogue.roboshop.internal/' \
-         -e 's/CARTENDPOINT/crt.roboshop.internal/' \
+         -e 's/CARTENDPOINT/cart.roboshop.internal/' \
          -e 's/DBHOST/mysql.roboshop.internal/' \
          /home/"${appDaemonUser}"/"${component}"/systemd.service &>>"${logFile}" &&
   mv /home/"${appDaemonUser}"/"${component}"/systemd.service /etc/systemd/system/"${component}".service &>>"${logFile}"
@@ -150,8 +150,9 @@ mavenForApplication(){
   Print "install maven"
   yum install maven -y &>>"$logFile"
   exitStatusCheck $?
-
+  #calling function which will setup daemon user
   createDaemonUser
+  #calling function which will set up app like downlaod content remove old content and extract
   settingUpApplication
 
   Print "maven packaging"
