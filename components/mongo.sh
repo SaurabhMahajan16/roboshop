@@ -53,7 +53,7 @@ exitStatusCheck $? "mongodb unzipped - "
 # shellcheck disable=SC2164
 #&>>"$logFile"
 Print "load schema"
-cd mongodb-main
+cd /tmp/mongodb-main
 
 for schema in catalogue users ; do
   Print "load ${schema} schema "
