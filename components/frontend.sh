@@ -50,7 +50,7 @@ exitStatusCheck $? "moving to current - "
 
 Print "edit roboshop.conf file and add dns for different components"
 mv localhost.conf /etc/nginx/default.d/roboshop.conf &>>"${logFile}"
-for components in catalogue user cart ; do
+for components in catalogue user cart shipping ; do
   Print "updating ${compents} configuration"
   sed -i -e "/"${components}"/s/localhost/"${components}".roboshop.internal/" /etc/nginx/default.d/roboshop.conf &>>"${logFile}"
 done
