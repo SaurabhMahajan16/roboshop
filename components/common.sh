@@ -36,7 +36,7 @@ createDaemonUser(){
 #this function is part of coding practise as in every application we are using downloading cleaning and extracting app content
 settingUpApplication(){
 
-  Print"downloading ${component}"
+  Print "downloading ${component}"
   curl -s -L -o /tmp/"${component}".zip "https://github.com/roboshop-devops-project/"${component}"/archive/main.zip" &>>"${logFile}"
     exitStatusCheck $?
 
