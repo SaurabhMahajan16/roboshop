@@ -36,11 +36,16 @@ exitStatusCheck $?
 
 #1. Create application user
 
-Print "create application server"
-rabbitmqctl add_user roboshop roboshop123 &>>"${logFile}"
+rabbitmqctl list_users | grep roboshop &>>"${logFile}"
+if [ $? -ne 0 ]; then
+  Print "create application server"
+  rabbitmqctl add_user roboshop roboshop123 &>>"${logFile}"
+  exitStatusCheck $?
+fi
+
+Print "configuration application user"
+rabbitmqctl set_user_tags roboshop administrator &>>"${logFile}" && rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*" &>>"${logFile}"
 exitStatusCheck $?
-#rabbitmqctl set_user_tags roboshop administrator
-#rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"
 
 
 #Ref link : [https://www.rabbitmq.com/rabbitmqctl.8.html#User_Management](https://www.rabbitmq.com/rabbitmqctl.8.html#User_Management)
