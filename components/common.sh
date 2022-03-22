@@ -184,8 +184,22 @@ pythonForApplication(){
 
   settingUpPermissionAndService
 
+}
 
+goLangForApplication(){
 
+  Print "install the repo"
+  yum install golang -y &>>"$logFile"
+  exitStatusCheck $?
 
+  createDaemonUser
+
+  settingUpApplication
+
+  Print "installing the dependencies"
+  cd dispatch && go mod init dispatch &>>"$logFile" && go get &>>"$logFile" && go build &>>"$logFile"
+  exitStatusCheck $?
+
+  settingUpPermissionAndService
 
 }
