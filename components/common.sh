@@ -64,6 +64,9 @@ settingUpPermissionAndService(){
          -e 's/CATALOGUE_ENDPOINT/catalogue.roboshop.internal/' \
          -e 's/CARTENDPOINT/cart.roboshop.internal/' \
          -e 's/DBHOST/mysql.roboshop.internal/' \
+         -e 's/CARTHOST/cart.roboshop.internal/'\
+         -e 's/USERHOST/user.roboshop.internal/'\
+         -e 's/AMQPHOST/rabbitmq.roboshop.internal/'\
          /home/"${appDaemonUser}"/"${component}"/systemd.service &>>"${logFile}" &&
   mv /home/"${appDaemonUser}"/"${component}"/systemd.service /etc/systemd/system/"${component}".service &>>"${logFile}"
   exitStatusCheck $?
@@ -161,5 +164,28 @@ mavenForApplication(){
 
   #calling function which will setup permissions edit systemd.conf file and enable and restart the service
   settingUpPermissionAndService
+
+}
+
+pythonForApplication(){
+
+  createDaemonUser
+
+  Print "install python"
+  yum install python36 gcc python3-devel -y &>>"$logFile"
+  exitStatusCheck $?
+
+  settingUpApplication
+
+  Print "Install the dependencies"
+  cd /home/"${appDaemonUser}"/"${component}" && pip3 install -r requirements.txt &>>"$logFile"
+  exitStatusCheck $?
+
+
+  settingUpPermissionAndService
+
+
+
+
 
 }
