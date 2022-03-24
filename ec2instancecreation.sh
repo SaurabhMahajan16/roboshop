@@ -34,7 +34,9 @@ AmiId=$(aws ec2 describe-images --filters "Name=name,Values=Centos-7-DevOps-Prac
 exitStatusCheck $?
 
 echo "${AmiId}"
-aws ec2 run-instances --image-id "${AmiId}" --instance-type t3.micro --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=${component}]" &>>"${logFile}"
+
+Print "create instance"
+aws ec2 run-instances --image-id "${AmiId}" --instance-type t3.micro --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=${component}}]" &>>"${logFile}"
 exitStatusCheck $?
 
 
