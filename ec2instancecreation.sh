@@ -19,20 +19,23 @@ source components/common.sh
 #after fetching ami id we can use this command to run an instance
 # aws ec2 run-instances --image-id ami-0abcdef1234567890 --instance-type t2.micro --key-name MyKeyPaircommand
 # as we have to create dns record wrt the name of server so we will take input before running
-checkValueProvided(){
-  if [ -z "$1" ]; then
+
+component=$1
+securityGroupInput=$2
+
+
+
+  if [ "${component}" == '' ]; then
     Print "input machine name is needed"
     exit 1
-  fi
-  elif [ -z "$2" ]; then
+  elif [ "${securityGroupInput}" == "" ]; then
       Print "input security Group name is needed"
       exit 2
-
   else
-   break
+      break
   fi
 
-}
+
 ZoneId="Z09328736PFKQWEPDBCW"
 
 createEc2(){
@@ -52,8 +55,7 @@ createEc2(){
   aws route53 change-resource-record-sets --hosted-zone-id ${ZoneId} --change-batch file:///tmp/record.json | jq
 
 }
-component=$1
-securityGroupInput=$2
+
 #in order create tag for machine creation we are taking input from user and putting that i/p as name in tags for the machine
 
 
