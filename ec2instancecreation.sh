@@ -58,7 +58,7 @@ createEc2(){
 #in order create tag for machine creation we are taking input from user and putting that i/p as name in tags for the machine
 
 
-checkValueProvided
+#checkValueProvided
 
 AmiId=$(aws ec2 describe-images --filters "Name=name,Values=Centos-7-DevOps-Practice" | jq '.Images[].ImageId' | sed -e 's/"//g') &>>"${logFile}"
 exitStatusCheck $?
