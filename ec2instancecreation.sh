@@ -35,7 +35,7 @@ securityGroupInput=$2
   fi
 
 
-ZoneId="Z09328736PFKQWEPDBCW"
+zoneId="Z09328736PFKQWEPDBCW"
 
 createEc2(){
 
@@ -51,7 +51,7 @@ createEc2(){
 
   sed -e "s/IPADDRESS/${PrivateIpAddressForRoute53}/" -e "s/componentName/${component}/" route53.json >/tmp/record.json
 
-  aws route53 change-resource-record-sets --hosted-zone-id ${ZoneId} --change-batch file:///tmp/record.json | jq
+  aws route53 change-resource-record-sets --hosted-zone-id ${zoneId} --change-batch file://tmp/record.json | jq
 
 }
 
