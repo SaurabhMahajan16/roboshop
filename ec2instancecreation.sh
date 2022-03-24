@@ -27,7 +27,7 @@ fi
 
 component=$1
 
-#in order create tag for machine creation
+#in order create tag for machine creation we are taking input from user and putting that i/p as name in tags for the machine
 
 
 AmiId=$(aws ec2 describe-images --filters "Name=name,Values=Centos-7-DevOps-Practice" | jq '.Images[].ImageId' | sed -e 's/"//g') &>>"${logFile}"
@@ -36,7 +36,8 @@ exitStatusCheck $?
 echo "${AmiId}"
 
 Print "create instance"
-aws ec2 run-instances --image-id "${AmiId}" --instance-type t3.micro --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=${component}}]" &>>"${logFile}"
+aws ec2 run-instances --image-id "${AmiId}" --instance-type t3.micro --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=${component}}]" | jq
+#as this cmd will give an O/p but if u | jq it will automatically come out of it
 exitStatusCheck $?
 
 
