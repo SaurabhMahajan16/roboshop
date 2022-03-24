@@ -20,11 +20,11 @@ source components/common.sh
 # aws ec2 run-instances --image-id ami-0abcdef1234567890 --instance-type t2.micro --key-name MyKeyPaircommand
 # as we have to create dns record wrt the name of server so we will take input before running
 checkValueProvided(){
-  if [ -z "$1" ];then
+  if [ -z "$1" ]; then
     Print "input machine name is needed"
     exit 1
   fi
-  if [ -z "$2" ];then
+  if [ -z "$2" ]; then
       Print "input security Group name is needed"
       exit 2
   fi
