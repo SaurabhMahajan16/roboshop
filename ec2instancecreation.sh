@@ -24,9 +24,12 @@ checkValueProvided(){
     Print "input machine name is needed"
     exit 1
   fi
-  if [ -z "$2" ]; then
+  elif [ -z "$2" ]; then
       Print "input security Group name is needed"
       exit 2
+
+  else
+   break
   fi
 
 }
