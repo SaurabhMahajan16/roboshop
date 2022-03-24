@@ -19,14 +19,19 @@ source components/common.sh
 #after fetching ami id we can use this command to run an instance
 # aws ec2 run-instances --image-id ami-0abcdef1234567890 --instance-type t2.micro --key-name MyKeyPaircommand
 # as we have to create dns record wrt the name of server so we will take input before running
+checkValueProvided(){
+  if [-z "$1"];then
+    Print "input machine name is needed"
+    exit 1
+  fi
+  if [-z "$2"];then
+      Print "input security Group name is needed"
+      exit 2
+  fi
 
-if [-z "$1"];then
-  Print "input machine name is needed"
-  exit 1
-fi
-
+}
 component=$1
-
+securityGroupInput=$2
 #in order create tag for machine creation we are taking input from user and putting that i/p as name in tags for the machine
 
 
@@ -40,4 +45,8 @@ aws ec2 run-instances --image-id "${AmiId}" --instance-type t3.micro --tag-speci
 #as this cmd will give an O/p but if u | jq it will automatically come out of it
 exitStatusCheck $?
 
+#now as we are assigning each ami our security group we created so in order to do that we have to describe security group by name and then get the id of security group
+
+
+aws ec2 describe-security-groups --filters Name=group-name,Values="${securityGroupInput}"
 
