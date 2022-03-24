@@ -19,7 +19,7 @@
 #after fetching ami id we can use this command to run an instance
 # aws ec2 run-instances --image-id ami-0abcdef1234567890 --instance-type t2.micro --key-name MyKeyPaircommand
 
-AmiId=$(aws ec2 describe-images --filters "Name=name,Values=Centos-7-DevOps-Practise" | jq '.Images[].ImageId' | sed -e 's/"//g')
+AmiId=$(aws ec2 describe-images --filters "Name=name,Values=Centos-7-DevOps-Practice" | jq '.Images[].ImageId' | sed -e 's/"//g')
 echo "${AmiId}"
 aws ec2 run-instances --image-id "${AmiId}" --instance-type t3.micro
 
