@@ -36,7 +36,7 @@ exitStatusCheck $?
 echo "${AmiId}"
 
 Print "create instance"
-aws ec2 run-instances --image-id "${AmiId}" --instance-type t3.micro --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=${component}}]" | jq
+aws ec2 run-instances --image-id "${AmiId}" --instance-type t3.micro --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=${component}}]" | jq &>>"${logFile}"
 #as this cmd will give an O/p but if u | jq it will automatically come out of it
 exitStatusCheck $?
 
