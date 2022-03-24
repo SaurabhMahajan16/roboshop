@@ -28,11 +28,10 @@ securityGroupInput=$2
   if [ "${component}" == '' ]; then
     Print "input machine name is needed"
     exit 1
-  elif [ "${securityGroupInput}" == "" ]; then
+  fi
+  if [ "${securityGroupInput}" == "" ]; then
       Print "input security Group name is needed"
       exit 2
-  else
-      break
   fi
 
 
