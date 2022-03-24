@@ -40,7 +40,7 @@ exitStatusCheck $?
 Print "${AmiId}"
 
 Print "getting security group Id"
-SecurityGroupId=(aws ec2 describe-security-groups --filters Name=group-name,Values="${securityGroupInput}" | jq '.SecurityGroups[].GroupId') | sed -e 's/"//g' &>>"${logFile}"
+SecurityGroupId=(aws ec2 describe-security-groups --filters Name=group-name,Values="${securityGroupInput}" | jq '.SecurityGroups[].GroupId' | sed -e 's/"//g') &>>"${logFile}"
 exitStatusCheck $?
 Print "${SecurityGroupId}"
 
