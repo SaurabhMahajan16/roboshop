@@ -37,16 +37,33 @@ securityGroupInput=$2
 
 AmiId=$(aws ec2 describe-images --filters "Name=name,Values=Centos-7-DevOps-Practice" | jq '.Images[].ImageId' | sed -e 's/"//g') &>>"${logFile}"
 exitStatusCheck $?
+Print "${AmiId}"
 
-echo "${AmiId}"
+Print "getting security group Id"
+SecurityGroupId=(aws ec2 describe-security-groups --filters Name=group-name,Values="${securityGroupInput}" | jq '.SecurityGroups[].GroupId') | sed -e 's/"//g' &>>"${logFile}"
+exitStatusCheck $?
+Print "${SecurityGroupId}"
+
 
 Print "create instance"
-aws ec2 run-instances --image-id "${AmiId}" --instance-type t3.micro --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=${component}}]" | jq &>>"${logFile}"
+aws ec2 run-instances \
+    --image-id "${AmiId}" \
+    --instance-type t3.micro \
+    --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=${component}}]"\
+    --instance-market-options "MarketType=spot,SpotOptions={SpotInstanceType=persistent,InstanceInterruptionBehavior=stop}" \
+     --security-group-ids ${SecurityGroupId}| jq &>>"${logFile}"
 #as this cmd will give an O/p but if u | jq it will automatically come out of it
 exitStatusCheck $?
 
 #now as we are assigning each ami our security group we created so in order to do that we have to describe security group by name and then get the id of security group
 
 
-aws ec2 describe-security-groups --filters Name=group-name,Values="${securityGroupInput}"
+
+
+
+
+
+
+
+
 
