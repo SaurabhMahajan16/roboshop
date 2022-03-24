@@ -49,7 +49,7 @@ createEc2(){
   #as this cmd will give an O/p but if u | jq it will automatically come out of it
   exitStatusCheck $?
 
-  sed -e "s/IPADDRESS/${PrivateIpAddress}/" -e "s/componentName/${component}/" route53.json >/tmp/record.json
+  sed -e "s/IPADDRESS/${PrivateIpAddressForRoute53}/" -e "s/componentName/${component}/" route53.json >/tmp/record.json
 
   aws route53 change-resource-record-sets --hosted-zone-id ${ZoneId} --change-batch file:///tmp/record.json | jq
 
