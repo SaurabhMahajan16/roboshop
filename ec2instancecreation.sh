@@ -1,5 +1,5 @@
 #! /usr/bin/bash
-
+source components/common.sh
 # we need access key and passcode for this
 #the command is aws configure
 #paste key from iam by creating a user and then in policies gives admin access and then create a user
@@ -18,10 +18,23 @@
 #aws ec2 describe-images --filters "Name=name,Values=Centos-7-DevOps-Practise" | jq '.Images[].ImageId'
 #after fetching ami id we can use this command to run an instance
 # aws ec2 run-instances --image-id ami-0abcdef1234567890 --instance-type t2.micro --key-name MyKeyPaircommand
+# as we have to create dns record wrt the name of server so we will take input before running
 
-AmiId=$(aws ec2 describe-images --filters "Name=name,Values=Centos-7-DevOps-Practice" | jq '.Images[].ImageId' | sed -e 's/"//g')
+if [-z "$1"];then
+  Print "input machine name is needed"
+  exit 1
+fi
+
+component=$1
+
+#in order create tag for machine creation
+
+
+AmiId=$(aws ec2 describe-images --filters "Name=name,Values=Centos-7-DevOps-Practice" | jq '.Images[].ImageId' | sed -e 's/"//g') &>>"${logFile}"
+exitStatusCheck $?
+
 echo "${AmiId}"
-aws ec2 run-instances --image-id "${AmiId}" --instance-type t3.micro
-
+aws ec2 run-instances --image-id "${AmiId}" --instance-type t3.micro --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=${component}]" &>>"${logFile}"
+exitStatusCheck $?
 
 
